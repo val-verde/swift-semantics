@@ -72,7 +72,9 @@ extension Class: ExpressibleBySyntax {
         attributes = node.attributes?.compactMap{ $0.as(AttributeSyntax.self) }.map { Attribute($0) } ?? []
         modifiers = node.modifiers?.map { Modifier($0) } ?? []
 
-        #if swift(>=5.5)
+        #if swift(>=5.6)
+        keyword = node.classKeyword.text.trimmed
+        #elseif swift(>=5.5)
         keyword = node.classOrActorKeyword.text.trimmed
         #else
         keyword = node.classKeyword.text.trimmed
